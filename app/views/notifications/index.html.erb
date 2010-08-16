@@ -1,0 +1,54 @@
+<h2>Notifications</h2>
+<p>Check the fields below, for which you wish to generate a notification, if their value gets changed.</p>
+
+<% if @project_identifier %>
+<% form_tag("/notifications/edit", :id => 'notification_form' ) do %>
+  
+  <div class="autoscroll">
+  
+    <%= hidden_field_tag 'project_id', @project_identifier %>
+    
+    <table class="list">
+    
+      <thead>
+        <tr>
+          <th></th>
+        <% @columns.each do |c| %>
+          <th><%= l_or_humanize(('field_' + c).to_sym) %></th>
+        <% end %>
+        <% @custom_columns.each do |c| %>
+          <th><%= c.name %></th>
+        <% end %>
+        </tr>
+      </thead>
+    
+      <tbody>
+      <% @trackers.each do |t| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= t.name %></td>
+        <% @columns.each do |c| %>
+        <td align="center"><input <% if @state[t.id][c.to_sym] == :checked then %>checked="checked"<% end %> 
+          name="notification[<%= t.id %>][<%= c %>]" type="checkbox" /></td>
+        <% end %>
+        <% @custom_columns.each do |c| %>
+        <td align="center"><% if @custom_columns_use[t.id] && @custom_columns_use[t.id][c.id] then %>
+          <input <% if @state[t.id][('custom_field_' + c.id.to_s ).to_sym] == :checked then %>checked="checked"<% end %>
+          name="notification[<%= t.id %>][custom_field_<%= c.id %>]" type="checkbox" />
+        <% else %>&nbsp;<% end %></td>
+        <% end %>
+        </tr>
+      <% end %>
+      </tbody>
+    
+    </table>
+
+  </div>
+  
+  <p><%= check_all_links 'notification_form' %></p>
+
+  <%= submit_tag l(:button_save) %>
+  
+<% end %>
+<% else %>
+  <p>No project ID supplied</p>
+<% end %>

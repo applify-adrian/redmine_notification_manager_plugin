@@ -1,0 +1,28 @@
+h1. Notification Control
+
+This Redmine plugin lets you configure for each project/tracker-combination which field changes result in a notification.
+
+h2. Installation
+
+# Copy the notification_control plugin to your redmine plugin directory (vendor/plugins)
+# Apply the Database Schema Migration file (20100728100000_create_notification_controls.rb) by using the following command: rake db:migrate_plugins
+# Restart any running Redmine application servers
+# Configure the notification settings per project as desired
+
+h2. Usage
+
+# By default, the plugin does not change the behavior of redmine at all, meaning that notifications are sent as usual.
+# Settings for notifications are made on project level. This means that you need to switch to a project, so that you can click the new "Notification" tab
+# For each tracker in a project you can check the fields that should result in a e-mail notification, if their value gets changed.
+# Use the "Save" button to store your settings.
+# If you uncheck all checkboxes for a project, this means that no notifications will be sent for this project.
+# If you check all the checkboxes for a project, notifications will be sent as if there was no plugin installed.
+
+h2. TODO
+
+Check compatibility with different versions of redmine and different database systems. This plugin was developed for "Redmine 0.9.3.stable (MySQL)".
+
+h2. License
+
+This software is licensed under the GNU GPL v2. See COPYRIGHT and COPYING for details.
+
